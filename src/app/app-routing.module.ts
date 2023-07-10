@@ -8,6 +8,7 @@ import { ServersComponent } from "./servers/servers.component";
 import { UserComponent } from "./users/user/user.component";
 import { UsersComponent } from "./users/users.component";
 import { AuthGaurd } from "./auth-guard.service";
+import { ServerResolver } from "./servers/server/server-resolver.service";
 
 const routes: Routes =[
     {path: '', component: HomeComponent},
@@ -15,7 +16,7 @@ const routes: Routes =[
       {path: ':id/:name', component: UserComponent}
     ]},
     {path: 'servers', canActivateChild:[AuthGaurd],component: ServersComponent, children:[
-      {path: ':id', component: ServerComponent},
+      {path: ':id', resolve: {server: ServerResolver}, component: ServerComponent},
       {path: ':id/edit', component: EditServerComponent}
     ]},
     {path: 'not-found', component: PageNotFoundComponent},
